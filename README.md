@@ -13,7 +13,7 @@ the notification mail would be sent to the chosen Telegram chats.
 
 Run:
 ```
-docker run -p 25:25 -e ST_TELEGRAM_BOT_TOKEN=XXXXXXXXXXX -e ST_TELEGRAM_CHAT_IDS=XXXXXXXXX ghcr.io/muratovas/smtptg:latest
+docker run --rm -p 25:25 -e ST_TELEGRAM_BOT_TOKEN=XXXXXXXXXXX -e ST_TELEGRAM_CHAT_IDS=XXXXXXXXX ghcr.io/muratovas/smtptg:latest
 ```
 
 Request to check the service:
