@@ -14,7 +14,10 @@ FROM alpine:latest
 RUN apk add --no-cache ca-certificates mailcap
 
 COPY --from=builder /smtptg/smtptg /usr/bin/
-ENV ST_SMTP_LISTEN="0.0.0.0:2525"
-EXPOSE 2525
+
+ENV ST_SMTP_LISTEN="0.0.0.0:25"
+EXPOSE 25
+
 USER nobody
+
 CMD ["/usr/bin/smtptg"]

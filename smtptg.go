@@ -139,7 +139,7 @@ func main() {
 	app.Flags = []cli.Flag{
 		&cli.StringFlag{
 			Name:    "smtp-listen",
-			Value:   "127.0.0.1:2525",
+			Value:   "127.0.0.1:25",
 			Usage:   "SMTP: TCP address to listen to",
 			EnvVars: []string{"ST_SMTP_LISTEN"},
 		},
