@@ -8,7 +8,7 @@
 [Go Report Card]:  https://goreportcard.com/report/github.com/simplylizz/smtp_to_telegram
 [License]:         https://github.com/simplylizz/smtp_to_telegram/blob/main/LICENSE
 
-Forked from [KostyaEsmukov/smtp_to_telegram](https://github.com/KostyaEsmukov/smtp_to_telegram) package.
+Forked from [simplylizz/smtp_to_telegram](https://github.com/simplylizz/smtp_to_telegram) package.
 
 `smtp_to_telegram` is a small program which listens for SMTP and sends
 all incoming Email messages to Telegram.
