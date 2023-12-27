@@ -89,6 +89,7 @@ func GetHostname() string {
 	return hostname
 }
 
+
 func main() {
 	app := cli.NewApp()
 	app.Name = "smtp_to_telegram"
