@@ -1,35 +1,20 @@
 FROM golang:1.21-alpine AS builder
 
-RUN apk add --no-cache git ca-certificates mailcap
+RUN mkdir /smtptg
+WORKDIR /smtptg
 
-WORKDIR /app
+COPY go.mod go.mod
+COPY go.sum go.sum
+COPY smtptg.go smtptg.go
 
-COPY go.mod .
-COPY go.sum .
+RUN go build -o smtptg ./smtptg.go
 
-RUN go mod download
-
-COPY . .
-
-# The image should be built with
-# --build-arg ST_VERSION=`git describe --tags --always`
-ARG ST_VERSION
-ARG GOPROXY=direct
-RUN CGO_ENABLED=0 GOOS=linux go build \
-        -ldflags "-s -w \
-            -X main.Version=${ST_VERSION:-UNKNOWN_RELEASE}" \
-        -tags urfave_cli_no_docs \
-        -a -o smtptg
-
-FROM alpine
+FROM alpine:latest
 
 RUN apk add --no-cache ca-certificates mailcap
 
-COPY --from=builder /app/smtptg /smtptg
-
-USER daemon
-
+COPY --from=builder /smtptg/smtptg /usr/bin/
 ENV ST_SMTP_LISTEN="0.0.0.0:2525"
 EXPOSE 2525
-
-ENTRYPOINT ["/smtptg"]
+USER nobody
+CMD ["/usr/bin/smtptg"]
