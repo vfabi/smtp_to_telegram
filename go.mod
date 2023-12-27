@@ -1,4 +1,4 @@
-module github.com/simplylizz/smtp_to_telegram
+module github.com/MuratovAS/smtptg
 
 go 1.21
 
