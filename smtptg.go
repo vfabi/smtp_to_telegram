@@ -314,21 +314,35 @@ func SendEmailToTelegram(
 	}
 
 	chatIdList := []string{}
-	classicEmail := false
 	for _, rcptTo := range envelope.RcptTo {
 		rcptToSplit := strings.Split(rcptTo.String(),"@");
 		if rcptToSplit[1] == "telegram.org" {
 			chatIdList = append(chatIdList, rcptToSplit[0])
-		} else {
-			classicEmail = true
-		}
+		} 
 	}
 	
-	if classicEmail == true && telegramConfig.telegramChatIds != "" {
+	if  telegramConfig.telegramChatIds != "" {
 		chatIdList = append(chatIdList, strings.Split(telegramConfig.telegramChatIds, ",")...)
 	}
 	
 	for _, chatId := range chatIdList {
+		toMail := ""
+		if strings.Contains(chatId, ":") {
+			parsedChatId := strings.Split(chatId, ":")
+			toMail, chatId = parsedChatId[0], parsedChatId[1]
+		}
+
+		recipientExists :=  false
+		for _, rcptTo := range envelope.RcptTo {
+			if strings.Contains(rcptTo.String(), toMail){
+				recipientExists = true
+			}
+		}
+		
+		if !recipientExists && toMail != "" {
+			continue
+		}
+		
 		sentMessage, err := SendMessageToChat(message, chatId, telegramConfig, &client)
 		if err != nil {
 			// If unable to send at least one message -- reject the whole email.

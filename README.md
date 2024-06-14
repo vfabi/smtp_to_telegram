@@ -21,7 +21,7 @@ Request to check the service:
 curl \
   --url 'smtp://localhost:25' \
   --mail-from sender@test.test \
-  --mail-rcpt user@test.test --mail-rcpt user1@test.test \
+  --mail-rcpt user@test.test --mail-rcpt 000000000@telegram.org \
   -H "Subject: Test smtptg" -F '=(;type=multipart/mixed' -F "=This message came via smtp;type=text/plain" -F '=)'
 ```
 
@@ -33,7 +33,7 @@ Classic emails will still be sent to the `ID` specified in `ST_TELEGRAM_CHAT_IDS
 A custom format might be specified as well:
 ```
 ST_TELEGRAM_BOT_TOKEN=<BOT_TOKEN>
-ST_TELEGRAM_CHAT_IDS=<CHAT_ID1>,<CHAT_ID2> # optional
+ST_TELEGRAM_CHAT_IDS=[to@email.com:]<CHAT_ID1>,[to@email.com:]<CHAT_ID2> # optional
 ST_TELEGRAM_MESSAGE_TEMPLATE="Subject: {subject}\\n\\n{body}" # optional
 ST_SMTP_ALLOWED_HOSTS=cvzilla.net,example.com # optional
 ```
