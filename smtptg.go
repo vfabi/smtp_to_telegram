@@ -382,7 +382,7 @@ func SendMessageToChat(
 			telegramConfig.telegramApiPrefix,
 			telegramConfig.telegramBotToken,
 		),
-		url.Values{"chat_id": {chatId}, "text": {message.text}},
+		url.Values{"chat_id": {chatId}, "text": {message.text}, "parse_mode": {"HTML"}},
 	)
 	if err != nil {
 		return nil, err
